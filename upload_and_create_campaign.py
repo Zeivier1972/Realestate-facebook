@@ -88,7 +88,6 @@ def create_campaign():
         "objective": "OUTCOME_LEADS",
         "status": "PAUSED",
         "special_ad_categories": json.dumps(["HOUSING"]),
-        "daily_budget": "5000",
     }).json()
     campaign_id = res.get("id")
     print(f"  Campaign: {campaign_id or res}")
@@ -114,6 +113,7 @@ def create_ad_set(campaign_id):
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "LEAD_GENERATION",
         "promoted_object": json.dumps({"page_id": PAGE_ID}),
+        "daily_budget": "5000",
         "targeting": json.dumps(targeting),
         "status": "PAUSED",
     }).json()
@@ -154,8 +154,6 @@ def create_lead_form():
         "thank_you_page": json.dumps({
             "title": "Thanks! I'll be in touch shortly.",
             "body": "Catherine will contact you within 24 hours with your personalized home list.",
-            "cta_type": "VIEW_WEBSITE",
-            "cta_link": "https://yourfloridahomeforyou.com"
         }),
         "context_card": json.dumps({
             "title": "No HOA · No CDD · Seller Pays Closing Costs",
@@ -228,9 +226,11 @@ if __name__ == "__main__":
     }
     print("Using existing image hashes:", image_hashes)
 
-    # Campaign already created — reuse existing ID
-    campaign_id = "120247131196090156"
-    print(f"\n=== Reusing existing Campaign ID: {campaign_id} ===")
+    # Create fresh campaign (ABO — budget on ad set level)
+    campaign_id = create_campaign()
+    if not campaign_id:
+        print("\n❌ Campaign creation failed.")
+        exit(1)
 
     adset_id = create_ad_set(campaign_id)
     if not adset_id:
