@@ -88,6 +88,7 @@ def create_campaign():
         "objective": "OUTCOME_LEADS",
         "status": "PAUSED",
         "special_ad_categories": json.dumps(["HOUSING"]),
+        "is_adset_budget_sharing_enabled": "false",
     }).json()
     campaign_id = res.get("id")
     print(f"  Campaign: {campaign_id or res}")
