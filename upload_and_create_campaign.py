@@ -157,7 +157,7 @@ def create_lead_form():
         "thank_you_page": json.dumps({
             "title": "Thanks! I'll be in touch shortly.",
             "body": "Catherine will contact you within 24 hours with your personalized home list.",
-            "button_type": "NO_BUTTON",
+            "button_type": "NONE",
         }),
         "context_card": json.dumps({
             "title": "No HOA · No CDD · Seller Pays Closing Costs",
