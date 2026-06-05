@@ -160,6 +160,7 @@ def create_lead_form():
             "button_type": "NONE",
         }),
         "context_card": json.dumps({
+            "style": "LIST_STYLE",
             "title": "No HOA · No CDD · Seller Pays Closing Costs",
             "content": [
                 "4 & 5 bedroom homes from $380K–$1.4M",
