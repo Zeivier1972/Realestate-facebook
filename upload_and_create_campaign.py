@@ -155,6 +155,7 @@ def create_lead_form():
         "thank_you_page": json.dumps({
             "title": "Thanks! I'll be in touch shortly.",
             "body": "Catherine will contact you within 24 hours with your personalized home list.",
+            "button_type": "NO_BUTTON",
         }),
         "context_card": json.dumps({
             "title": "No HOA · No CDD · Seller Pays Closing Costs",
@@ -180,7 +181,7 @@ def create_ads(adset_id, image_hashes, form_id):
             print(f"  ⚠️  No image hash for {copy['image_key']} — skipping")
             continue
 
-        # Create ad creative
+        # Create ad creative — Lead Gen format
         creative_res = requests.post(f"{BASE}/{AD_ACCOUNT}/adcreatives", data={
             "access_token": USER_TOKEN,
             "name": copy["name"],
@@ -188,12 +189,15 @@ def create_ads(adset_id, image_hashes, form_id):
                 "page_id": PAGE_ID,
                 "link_data": {
                     "image_hash": img_hash,
-                    "link": "https://yourfloridahomeforyou.com",
+                    "link": f"https://www.facebook.com/lead_gen_form/{form_id}" if form_id else "https://yourfloridahomeforyou.com",
                     "message": copy["body"],
                     "name": copy["title"],
                     "call_to_action": {
-                        "type": "LEARN_MORE",
-                        "value": {"lead_gen_form_id": form_id}
+                        "type": "SIGN_UP",
+                        "value": {
+                            "lead_gen_form_id": form_id,
+                            "link": f"https://www.facebook.com/lead_gen_form/{form_id}" if form_id else "https://yourfloridahomeforyou.com"
+                        }
                     }
                 }
             }),
@@ -219,13 +223,8 @@ if __name__ == "__main__":
     print("🚀 Silver Parc — Facebook Lead Gen Campaign Setup")
     print("=" * 50)
 
-    # Images already uploaded — reuse hashes
-    image_hashes = {
-        "catalina_4bd": "4daf415bdb543753c07b2c1f79111900",
-        "eluthera_4bd": "d70d653402929657ff33d54c930d571e",
-        "cover_hero":   "066a29a4881cb4c30b80964993c0d29b",
-    }
-    print("Using existing image hashes:", image_hashes)
+    # Re-upload clean images (no developer branding)
+    image_hashes = upload_images()
 
     # Create fresh campaign (ABO — budget on ad set level)
     campaign_id = create_campaign()
