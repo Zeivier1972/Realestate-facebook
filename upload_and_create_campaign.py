@@ -109,16 +109,19 @@ def create_ad_set(campaign_id):
     }
     res = requests.post(f"{BASE}/{AD_ACCOUNT}/adsets", data={
         "access_token": USER_TOKEN,
-        "name": "South Miami-Dade Buyers 28-65 EN/ES",
+        "name": "South Miami-Dade Buyers EN/ES",
         "campaign_id": campaign_id,
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "LEAD_GENERATION",
+        "promoted_object": json.dumps({"page_id": PAGE_ID}),
         "targeting": json.dumps(targeting),
         "status": "PAUSED",
-        "destination_type": "ON_AD",
     }).json()
     adset_id = res.get("id")
-    print(f"  Ad Set: {adset_id or res}")
+    if adset_id:
+        print(f"  ✅ Ad Set: {adset_id}")
+    else:
+        print(f"  ❌ Ad Set FAILED: {res}")
     return adset_id
 
 
@@ -230,6 +233,10 @@ if __name__ == "__main__":
     print(f"\n=== Reusing existing Campaign ID: {campaign_id} ===")
 
     adset_id = create_ad_set(campaign_id)
+    if not adset_id:
+        print("\n❌ Ad Set creation failed — stopping here. Fix the error above first.")
+        exit(1)
+
     form_id  = create_lead_form()
     create_ads(adset_id, image_hashes, form_id)
 
