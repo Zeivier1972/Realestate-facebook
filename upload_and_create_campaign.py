@@ -113,9 +113,6 @@ def create_ad_set(campaign_id):
         "campaign_id": campaign_id,
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "LEAD_GENERATION",
-        "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
-        "bid_amount": "500",
-        "daily_budget": "5000",
         "targeting": json.dumps(targeting),
         "status": "PAUSED",
         "destination_type": "ON_AD",
@@ -220,7 +217,13 @@ if __name__ == "__main__":
     print("🚀 Silver Parc — Facebook Lead Gen Campaign Setup")
     print("=" * 50)
 
-    image_hashes = upload_images()
+    # Images already uploaded — reuse hashes
+    image_hashes = {
+        "catalina_4bd": "4daf415bdb543753c07b2c1f79111900",
+        "eluthera_4bd": "d70d653402929657ff33d54c930d571e",
+        "cover_hero":   "066a29a4881cb4c30b80964993c0d29b",
+    }
+    print("Using existing image hashes:", image_hashes)
 
     # Campaign already created — reuse existing ID
     campaign_id = "120247131196090156"
