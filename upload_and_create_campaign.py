@@ -99,17 +99,12 @@ def create_ad_set(campaign_id):
     print("\n=== Creating Ad Set ===")
     targeting = {
         "geo_locations": {
-            "cities": [
-                {"key": "2421836", "name": "Cutler Bay",    "region": "Florida", "country": "US"},
-                {"key": "2421835", "name": "Palmetto Bay",  "region": "Florida", "country": "US"},
-                {"key": "2421810", "name": "Pinecrest",     "region": "Florida", "country": "US"},
-                {"key": "2421798", "name": "Kendall",       "region": "Florida", "country": "US"},
-                {"key": "2421808", "name": "South Miami",   "region": "Florida", "country": "US"},
+            "custom_locations": [
+                {"latitude": 25.5766, "longitude": -80.3453, "radius": 15, "distance_unit": "mile"},
             ],
             "location_types": ["home", "recent"]
         },
-        "age_min": 28,
-        "age_max": 65,
+        "age_min": 18,
         "locales": [6, 23],
     }
     res = requests.post(f"{BASE}/{AD_ACCOUNT}/adsets", data={
