@@ -119,6 +119,7 @@ def create_ad_set(campaign_id):
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "LEAD_GENERATION",
         "bid_strategy": "LOWEST_COST_WITHOUT_CAP",
+        "bid_amount": "500",
         "daily_budget": "5000",
         "targeting": json.dumps(targeting),
         "status": "PAUSED",
@@ -193,6 +194,7 @@ def create_ads(adset_id, image_hashes, form_id):
                 "page_id": PAGE_ID,
                 "link_data": {
                     "image_hash": img_hash,
+                    "link": "https://yourfloridahomeforyou.com",
                     "message": copy["body"],
                     "name": copy["title"],
                     "call_to_action": {
@@ -224,11 +226,10 @@ if __name__ == "__main__":
     print("=" * 50)
 
     image_hashes = upload_images()
-    campaign_id  = create_campaign()
 
-    if not campaign_id:
-        print("\n❌ Campaign creation failed. Check your token and ad account permissions.")
-        exit(1)
+    # Campaign already created — reuse existing ID
+    campaign_id = "120247131196090156"
+    print(f"\n=== Reusing existing Campaign ID: {campaign_id} ===")
 
     adset_id = create_ad_set(campaign_id)
     form_id  = create_lead_form()
