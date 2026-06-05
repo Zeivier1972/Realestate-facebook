@@ -19,9 +19,8 @@ AD_ACCOUNT = os.getenv("FB_AD_ACCOUNT_ID")
 BASE       = "https://graph.facebook.com/v25.0"
 
 IMAGES = {
-    "catalina_4bd": "images/ad_ready/catalina_4bd_1080x1080.jpg",
+    "antigua_3bd":  "images/ad_ready/antigua_3bd_1080x1080.jpg",
     "eluthera_4bd": "images/ad_ready/eluthera_4bd_1080x1080.jpg",
-    "cover_hero":   "images/ad_ready/cover_hero_1080x1080.jpg",
 }
 
 AD_COPIES = [
@@ -38,7 +37,7 @@ AD_COPIES = [
             "Click below to see available homes — no obligation!"
         ),
         "title": "No HOA. No CDD. Your Dream Home Awaits.",
-        "image_key": "catalina_4bd",
+        "image_key": "antigua_3bd",
     },
     {
         "name": "Sin HOA Sin CDD — Spanish",
