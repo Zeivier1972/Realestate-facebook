@@ -113,6 +113,8 @@ def create_ad_set(campaign_id):
         "campaign_id": campaign_id,
         "billing_event": "IMPRESSIONS",
         "optimization_goal": "LEAD_GENERATION",
+        "bid_strategy": "LOWEST_COST_WITH_BID_CAP",
+        "bid_amount": "500",
         "promoted_object": json.dumps({"page_id": PAGE_ID}),
         "daily_budget": "5000",
         "targeting": json.dumps(targeting),
