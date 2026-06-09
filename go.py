@@ -108,6 +108,7 @@ def create_lead_form():
     questions = [
         {"type": "FULL_NAME"},
         {"type": "EMAIL"},
+        {"type": "PHONE"},
         {"type": "CUSTOM", "label": "Cual es tu plazo para comprar?",
          "options": [
              {"value": "asap",      "key": "Lo antes posible"},
